@@ -1,46 +1,102 @@
 # claude-devs
 
-A centralized repository for managing Claude Code instructions, custom skills, and guidance documents.
+A Claude Code plugin for managing reusable skills, commands, and development workflow guides.
 
 ## Overview
 
-This repository serves as a knowledge base for everything related to [Claude Code](https://docs.anthropic.com/en/docs/claude-code) — Anthropic's official CLI tool for AI-assisted software development. It collects and organizes prompts, skill definitions, configuration templates, and best-practice guides to help teams and individuals get the most out of Claude Code.
+This repository is a [Claude Code plugin](https://docs.anthropic.com/en/docs/claude-code) that bundles custom skills, slash commands, hooks, and reference documents into a single installable package. Use it to extend Claude Code with team-shared or personal development workflows.
 
-## Repository Structure
+## Project Structure
 
 ```
 claude-devs/
-├── instructions/   # System prompts, CLAUDE.md templates, and project-level instructions
-├── skills/         # Custom skill definitions and slash-command configurations
-├── guides/         # How-to documents, workflows, and best-practice references
-└── examples/       # Real-world usage examples and case studies
+├── .claude-plugin/
+│   └── plugin.json          # Plugin manifest
+├── skills/                  # Agent skills (directory-based, with SKILL.md entry point)
+│   └── code-review/
+│       ├── SKILL.md         # Skill definition
+│       └── reference.md     # Supporting reference docs
+├── commands/                # Simple slash commands (.md files)
+│   └── quick-check.md
+├── agents/                  # Custom subagent definitions
+├── hooks/                   # Event hooks
+│   └── hooks.json
+├── scripts/                 # Utility and hook scripts
+├── LICENSE
+└── README.md
 ```
 
-## What's Inside
+## Quick Start
 
-- **Instructions** — Reusable system prompts and `CLAUDE.md` configurations for different project types and workflows.
-- **Skills** — Custom skill definitions (slash commands) that extend Claude Code's capabilities for specific tasks.
-- **Guides** — Step-by-step documentation covering setup, configuration, advanced usage patterns, and integration tips.
-- **Examples** — Practical examples demonstrating how to apply instructions and skills in real projects.
+### Load as a local plugin
 
-## Getting Started
+```bash
+claude --plugin-dir /path/to/claude-devs
+```
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/<your-org>/claude-devs.git
+### Use the bundled skills and commands
+
+```bash
+# Full code review
+/claude-devs:code-review src/app.ts
+
+# Quick scan
+/claude-devs:quick-check src/utils.js
+```
+
+### Debug mode
+
+```bash
+claude --plugin-dir /path/to/claude-devs --debug
+```
+
+## Adding a New Skill
+
+1. Create a directory under `skills/`:
+   ```
+   skills/my-skill/
+   ├── SKILL.md          # Required — YAML frontmatter + instructions
+   ├── reference.md      # Optional — detailed reference material
+   └── scripts/          # Optional — helper scripts
    ```
 
-2. Browse the directories above to find instructions, skills, or guides relevant to your use case.
+2. Define the skill in `SKILL.md`:
+   ```yaml
+   ---
+   name: my-skill
+   description: What this skill does
+   allowed-tools: Read, Grep
+   ---
 
-3. Copy or reference the files you need in your own projects.
+   Instructions for Claude when this skill is invoked...
+   ```
+
+3. Test it:
+   ```bash
+   claude --plugin-dir .
+   /claude-devs:my-skill [args]
+   ```
+
+## Adding a New Command
+
+Create a `.md` file in `commands/`:
+
+```yaml
+---
+description: What this command does
+---
+
+Instructions for Claude...
+```
+
+Commands are simpler than skills — single file, no supporting documents.
 
 ## Contributing
 
-Contributions are welcome. To add new content:
-
 1. Create a branch from `main`.
-2. Add or update files in the appropriate directory.
-3. Submit a pull request with a clear description of what you're adding.
+2. Add your skill or command following the structure above.
+3. Test locally with `--plugin-dir`.
+4. Submit a pull request.
 
 ## License
 
