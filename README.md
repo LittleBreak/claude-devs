@@ -4,7 +4,7 @@ A Claude Code plugin for managing reusable skills, commands, and development wor
 
 ## Overview
 
-This repository is a [Claude Code plugin](https://docs.anthropic.com/en/docs/claude-code) that bundles custom skills, slash commands, hooks, and reference documents into a single installable package. Use it to extend Claude Code with team-shared or personal development workflows.
+This repository is a [Claude Code plugin](https://code.claude.com/docs/en/plugins) that bundles custom skills, slash commands, hooks, and reference documents into a single installable package. Use it to extend Claude Code with team-shared or personal development workflows.
 
 ## Project Structure
 
@@ -18,10 +18,9 @@ claude-devs/
 │       └── reference.md     # Supporting reference docs
 ├── commands/                # Simple slash commands (.md files)
 │   └── quick-check.md
-├── agents/                  # Custom subagent definitions
 ├── hooks/                   # Event hooks
 │   └── hooks.json
-├── scripts/                 # Utility and hook scripts
+├── CHANGELOG.md
 ├── LICENSE
 └── README.md
 ```
