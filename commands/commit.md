@@ -48,23 +48,20 @@ description: 遵循 Conventional Commits 规范生成提交信息并提交代码
 
 ### 规则：
 
-- **description**（简短描述）：使用英文，祈使语气，首字母小写，不加句号，不超过 72 个字符
-- **body**（正文）：可选，解释变更的动机和与之前行为的对比，使用英文
+- **description**（简短描述）：使用中文，不加句号，不超过 50 个字符
+- **body**（正文）：可选，使用中文解释变更的动机和与之前行为的对比
 - **footer**：可选，用于关联 issue（如 `Closes #123`）或标注 BREAKING CHANGE
 - 如果存在破坏性变更，必须在 type 后加 `!` 或在 footer 中注明 `BREAKING CHANGE:`
-- 末尾添加 `Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>`
 
 ### 示例：
 
 ```
-feat(auth): add OAuth2 login support
+feat(auth): 添加 OAuth2 登录支持
 
-Implement OAuth2 authorization code flow with PKCE.
-This replaces the legacy session-based authentication.
+实现基于 PKCE 的 OAuth2 授权码流程，
+替换原有的基于会话的身份认证方式。
 
 Closes #42
-
-Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
 ```
 
 ## 第四步：执行提交
